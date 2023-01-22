@@ -1,0 +1,56 @@
+[
+  {
+    "tag": "party",
+    "id": 8439341,
+    "username": "prawyDxGramLewo",
+    "publishDate": "2023-01-10 12:00:00",
+    "content": "Cześć wszystkim, mam dla was propozycję. Moi przyjaciele i ja zamierzamy zagrać w grę Mafia w ten weekend. Byłoby fajniej grać z dużą grupą, o wiele bardziej interesującą. Będziemy w sali bilardowej Olimpic od godziny 18. Będzie nam bardzo miło Was widzieć",
+    "votes": 56,
+    "commentsCount": 2
+  },
+  {
+    "tag": "edu",
+    "id": 8439342,
+    "username": "koperek",
+    "publishDate": "2023-01-10 17:54:12",
+    "content": "Hejka,chcę się wybrać do kina na „Avatara 2” moze ktoś jeszcze nie był a szuka kogoś do pooglądania :) Proponuję czwartek o 19, a potem możemy zajrzeć do baru jeszcz na piwko xD.",
+    "votes": 123,
+    "commentsCount": 2
+  },
+  {
+    "tag": "help",
+    "id": 8439444,
+    "username": "architektkazzutu",
+    "publishDate": "2023-01-13 15:00:23",
+    "content": "Cześć mam 2 bilety na jutrzejszy mecz piłki nożnej, może ktoś chce dotrzymać mi towarzystwa :)",
+    "votes": 156,
+    "commentsCount": 1
+  },
+  {
+    "tag": "job",
+    "id": 8439343,
+    "username": "prawyDxGramLewo",
+    "publishDate": "2023-01-14 12:23:17",
+    "content": "CW naszym mieście w centrum otworzyła się nowa restauracja sushi, szukają kelnerów, ktoś coś?",
+    "votes": 234,
+    "commentsCount": 6
+  },
+  {
+    "tag": "sponsored",
+    "id": 843973400,
+    "username": "Kamilequ23",
+    "publishDate": "2023-01-15 11:28:34",
+    "content": "Siema wszystkim, chcę zrobić poprawę imprezy sylwestrowej u siebie w domu, aby w wesoły sposób pożegnać 2022 rok raz jeszcze. Kto jeszcze nie wie jak świętować z przyjemnością zapraszam :)Każdy przynosi alkohol, żeby było mu wygodnie do picia, jedzenie (jedzenia i alkoholu nigdy nie jest za dużo ;).Możecie zabrać ze sobą gry planszowe, aby lepiej się poznać i jeszcze lepiej się bawić.Będziemy odpalać fajerwerki.",
+    "votes": 15,
+    "commentsCount": 0
+  },
+  {
+    "tag": "sponsored",
+    "id": 8439344,
+    "username": "koperek",
+    "publishDate": "2023-01-16 11:28:34",
+    "content": "Środa to Dzień Studenta, proponuję iść do baru na Deptak i fajnie spędzić wieczór :) Kto ze mną?",
+    "votes": 28,
+    "commentsCount": 0
+  }
+]

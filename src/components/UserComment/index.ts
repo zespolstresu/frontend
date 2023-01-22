@@ -1,0 +1,1 @@
+export type { IUserComment } from './UserComment.types';
