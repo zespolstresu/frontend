@@ -35,5 +35,9 @@
     "eslint-plugin-react": "^7.31.11",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
+  },
+  "engines": {
+    "node": "v18.12.0",
+    "yarn": "1.22.19"
   }
 }
