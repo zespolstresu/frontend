@@ -53,7 +53,9 @@ const Post = (props: IPost): JSX.Element => {
   }, [userVote]);
 
   useEffect(() => {
-    loadComments();
+    if(userToken){
+      loadComments();
+    }
   }, [commentsCount]);
 
   useEffect(() => {
