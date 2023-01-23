@@ -1,1 +1,1 @@
-web: vite build --port $PORT
+web: bin/start-nginx-solo
