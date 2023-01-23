@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://spotus-backend.herokuapp.com/api',
+        target: 'https://spotus-backend.herokuapp.com/api',
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace('/api', '')
