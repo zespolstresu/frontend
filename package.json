@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "build": "tsc && vite build",
-    "preview": "vite preview --port $PORT",
+    "preview": "vite preview",
     "serve": "yarn build && vite preview"
   },
   "dependencies": {
