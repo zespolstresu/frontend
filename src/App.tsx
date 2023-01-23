@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AppWrapper, ContentWrapper } from './App.styles';
 import Navbar from './components/Navbar/Navbar';
 import { ThemeProvider } from '@mui/system';
-import { spotUSTheme } from '../public';
+import spotUSTheme from './theme/theme';
 import { AppRouter } from './routes';
 import { UserContext } from './context';
 
