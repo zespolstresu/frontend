@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview --port $PORT",
     "serve": "yarn build && vite preview"
   },
