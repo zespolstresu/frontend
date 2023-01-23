@@ -13,5 +13,9 @@ export default defineConfig({
       }
     },
     base: '/frontend/'
+  },
+  root: './src',
+  build: {
+    outDir: './dist'
   }
 });
