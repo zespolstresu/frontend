@@ -28,9 +28,9 @@ const Register = (): JSX.Element => {
     };
 
     const jwtObject = await createUser(userData);
-    if (jwtObject.includes('email')) {
+    if (typeof jwtObject === 'string' && jwtObject.includes('email')) {
       setEmailErrorMessage(jwtObject);
-    } else if (jwtObject.includes('nick')) {
+    } else if (typeof jwtObject === 'string' && jwtObject.includes('nick')) {
       setUsernameErrorMessage(jwtObject);
     }
     const jwt = jwtObject.token;

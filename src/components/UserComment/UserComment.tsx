@@ -14,7 +14,7 @@ const UserComment = ({ postId }: IPostData): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const response = await createComment({ postId, content: comment });
-    if (response.includes('niezgodne')) {
+    if (typeof response === 'string' && response.includes('niezgodne')) {
       setSwearWordsError(response);
       event.preventDefault();
     }
