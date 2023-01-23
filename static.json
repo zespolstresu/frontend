@@ -1,7 +1,18 @@
 {
   "root": "./dist",
   "clean_urls": true,
+  "headers": {
+    "/": {
+      "Cache-Control": "no-store, no-cache",
+      "Strict-Transport-Security": "max-age=7776002"
+    }
+  },
   "routes": {
     "/**": "index.html"
+  },
+  "proxies": {
+    "/api/": {
+      "origin": "${VITE_API_PROTOCOL}://${VITE_API_ENDPOINT}"
+    }
   }
 }
