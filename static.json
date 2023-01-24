@@ -12,7 +12,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "${VITE_API_PROTOCOL}://${VITE_API_ENDPOINT}"
+      "origin": "http://spotus-backend.herokuapp.com/api"
     }
   }
 }
