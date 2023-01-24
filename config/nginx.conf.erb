@@ -77,7 +77,7 @@ http {
     }
 
     # Redirect all request on /api/* to backend server
-    set $api_endpoint '<%= "https://spotus-backend.herokuapp.com/api" %>';
+    set $api_endpoint '<%= "#{ENV['VITE_API_PROTOCOL']}://#{ENV['VITE_API_ENDPOINT']}" %>';
     location /api/ {
       rewrite ^/api//?(.*)$ /$1 break;
       proxy_pass $api_endpoint;
