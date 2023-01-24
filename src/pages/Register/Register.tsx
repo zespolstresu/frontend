@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Avatar, Button, Link, Grid, Box, Typography } from '@mui/material'
+import {Avatar, Button, Link, Grid, Box, Typography } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
