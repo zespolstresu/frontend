@@ -79,7 +79,7 @@ http {
     # Redirect all request on /api/* to backend server
     set $api_endpoint '<%= "#{ENV['VITE_API_PROTOCOL']}://#{ENV['VITE_API_ENDPOINT']}" %>';
     location /api/ {
-      rewrite ^/api//?(.*)$ /$1 break;
+      # rewrite ^/api//?(.*)$ /$1 break;
       proxy_pass $api_endpoint;
       proxy_ssl_server_name on;
       proxy_redirect $api_endpoint/ /api/;
