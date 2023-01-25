@@ -63,7 +63,7 @@ const MainPage = (): JSX.Element => {
         }
         {
           !sponsoredPosts.length && (
-            <Typography variant='h4'>Nie znaleziono dostępnych postów</Typography>
+            <Typography variant='h4' color='text.light'>Nie znaleziono dostępnych postów</Typography>
           )
         }
       </StickySidebar>

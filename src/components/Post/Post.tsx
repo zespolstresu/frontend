@@ -16,7 +16,8 @@ import {
   CommentsContainer,
   CancelIcon,
   UpperWrapper,
-    Username
+  Username,
+  AddComment
 } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
@@ -53,7 +54,7 @@ const Post = (props: IPost): JSX.Element => {
   }, [userVote]);
 
   useEffect(() => {
-    if(userToken){
+    if (userToken && tag !== 'other') {
       loadComments();
     }
   }, [commentsCount]);
@@ -83,7 +84,9 @@ const Post = (props: IPost): JSX.Element => {
   };
 
   const handleShowComments = () => {
-    setShowComments(prev => !prev);
+    if (tag !== 'other') {
+      setShowComments(prev => !prev);
+    }
   };
 
   const handlePostDelete = async (event: any) => {
@@ -106,12 +109,14 @@ const Post = (props: IPost): JSX.Element => {
             </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>
-          <Comments>
-            <IconButton onClick={handleShowComments}>
-              <CommentIcon />
-            </IconButton>
-            <Typography>{commentsCount}</Typography>
-          </Comments>
+          {tag !== 'other' && (
+            <Comments>
+              <IconButton onClick={handleShowComments}>
+                <CommentIcon />
+              </IconButton>
+              <Typography>{commentsCount}</Typography>
+            </Comments>)
+          }
         </WrapperLeft>
         <WrapperRight item xs={2}>
           <Typography>{date}</Typography>
@@ -169,7 +174,7 @@ const Post = (props: IPost): JSX.Element => {
               )
               : (
                 <>
-                  <Typography variant="h4" color="initial">Dodaj komentarz</Typography>
+                  <AddComment variant="h4">Dodaj komentarz</AddComment>
                   <UserComment postId={id} />
                   {
                     comments.map(({ username, content, postId }, index) => (

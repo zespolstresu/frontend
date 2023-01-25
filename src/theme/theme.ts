@@ -43,6 +43,10 @@ const spotUSTheme = createTheme({
     }
   },
   typography: {
+    fontFamily: [
+      'Montserrat',
+      'sans-serif',
+    ].join(','),
     fontSize: 12,
     h2: {
       fontSize: 36,
@@ -78,6 +82,18 @@ const spotUSTheme = createTheme({
           fontWeight: '600 !important',
           textTransform: 'lowercase',
           borderRadius: 24,
+        }
+      }
+    },
+    MuiFormControlLabel: {
+      defaultProps: {
+        style: {
+          color: 'green !important'
+        }
+      },
+      styleOverrides: {
+        root: {
+          
         }
       }
     }

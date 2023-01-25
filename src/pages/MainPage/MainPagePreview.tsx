@@ -20,7 +20,7 @@ const MainPagePreview = (): JSX.Element => {
       rowSpacing={{ xs: 4, sm: 6, md: 10 }}
     >
       <Wall item md={6} >
-        <Slogan variant='h2'>Bądź na bierzaco ze studentami</Slogan>
+        <Slogan variant='h2'>Bądź na bierząco ze studentami</Slogan>
         <InfoText variant="body1">
           Na twojej tablicy będą pojawiać się ogłoszenia innych studentów. Możesz je oceniać i komentować, a także dodać własne!
         </InfoText>

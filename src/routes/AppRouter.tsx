@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
-import {UserContext} from '../context';
+import { UserContext } from '../context';
+import { TermsOfUse } from '../pages';
 
 const AppRouter = () => {
   const { userToken } = useContext(UserContext);
@@ -14,6 +15,7 @@ const AppRouter = () => {
           ? <Route path='/*' element={<PrivateRoutes />} />
           : <Route path='/*' element={<PublicRoutes />} />
       }
+      <Route path='termsOfUse' element={<TermsOfUse />} />
     </Routes>
   );
 };

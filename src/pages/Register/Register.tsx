@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import {Avatar, Button, Link, Grid, Box, Typography } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Wrapper from '@mui/material/Container';
 import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/User.api';
-import { ErrorMessage } from './Register.styles';
+import { ErrorMessage, StyledLink, ControlLabel } from './Register.styles';
 import {TextField} from '../../styles/commonStyles';
 
 
@@ -68,7 +67,7 @@ const Register = (): JSX.Element => {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Imię"
                   autoFocus
                 />
               </Grid>
@@ -77,7 +76,7 @@ const Register = (): JSX.Element => {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Nazwisko"
                   name="lastName"
                   autoComplete="family-name"
                 />
@@ -100,7 +99,7 @@ const Register = (): JSX.Element => {
                   fullWidth
                   type='email'
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
                 />
@@ -111,17 +110,18 @@ const Register = (): JSX.Element => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Hasło"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="secondary" />}
-                  label="Nie będę obrażać innych użytkowników ani zamieszczać niecenzuralnych treści."
+                <ControlLabel
+                  control={<Checkbox value="allowExtraEmails"  />}
+                  label="Akceptuję regulamin serwisu."
                 />
+                <StyledLink href='/termsOfUse'>Zapoznaj się z regulaminem pod tym linkiem</StyledLink>
               </Grid>
             </Grid>
             <Button

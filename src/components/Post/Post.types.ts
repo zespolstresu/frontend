@@ -7,7 +7,6 @@ export const tags: Record<'label', TTag>[] = [
   { label: 'help' },
   { label: 'job' },
   { label: 'event' },
-  { label: 'sponsored' },
   { label: 'other' }
 ];
 

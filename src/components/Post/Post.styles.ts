@@ -11,7 +11,12 @@ import MuiCancelIcon from '@mui/icons-material/Cancel';
 
 export const Username = styled(Typography)(({theme}) => ({
   color: theme.palette.primary.contrastText
-}))
+}));
+
+export const AddComment = styled(Typography)(({theme}) => ({
+  color: theme.palette.text.light
+}));
+
 export const Wrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
