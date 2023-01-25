@@ -16,7 +16,8 @@ import {
   CommentsContainer,
   UpperWrapper,
   Username,
-  AddComment
+  AddComment,
+  CancelIcon
 } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
@@ -33,9 +34,10 @@ const Post = (props: IPost): JSX.Element => {
   const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
   const { userToken } = useContext(UserContext);
   const [comments, setComments] = useState<IComment[]>([]);
-  const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
   const [totalVotes, setTotalVotes] = useState(votes || 0);
+  
+  const userVote = totalVotes - (votes || 0);
 
   const date = useMemo(() => (
     dateFormat(publishDate)
@@ -51,23 +53,17 @@ const Post = (props: IPost): JSX.Element => {
 
   useEffect(() => {
     updateVotes();
-  }, [userVote]);
+  }, [totalVotes]);
 
   useEffect(() => {
     loadComments();
   }, [commentsCount, showComments]);
 
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
-
   const updateVotes = async () => {
-    if (userVote) {
-      const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
-      console.log('%c updated votes: ', 'color: aqua', updatedVotes);
-      if (updatedVotes && typeof updatedVotes === 'number') {
-        setTotalVotes(updatedVotes);
-      }
+    const updatedVotes = await sendUserVote(id, totalVotes);
+    console.log('%c updated votes: ', 'color: aqua', updatedVotes);
+    if (updatedVotes && typeof updatedVotes === 'number') {
+      setTotalVotes(updatedVotes);
     }
   };
 
@@ -80,12 +76,6 @@ const Post = (props: IPost): JSX.Element => {
     }
   };
 
-  const handleVote = (vote: TVote) => () => {
-    console.log(vote);
-    console.log(userVote);
-    setUserVote(vote);
-  };
-
   const handleShowComments = () => {
     if (tag !== 'sponsored') {
       setShowComments(prev => !prev);
@@ -96,6 +86,13 @@ const Post = (props: IPost): JSX.Element => {
     await deletePost(id);
   };
 
+  const handleVote = (vote: TVote) => () => {
+    setTotalVotes((votes || 0) + vote);
+  };
+
+  const handleCancelVote = () => {
+    setTotalVotes(votes || 0);
+  };
 
   return (
     <Wrapper>
@@ -148,6 +145,14 @@ const Post = (props: IPost): JSX.Element => {
                   <DeleteIcon />
                 </IconButton>
               </form>
+            )}
+            {userVote !== 0 && (
+              <IconButton
+                onClick={handleCancelVote}
+                type='submit'
+                color='third'>
+                <CancelIcon />
+              </IconButton>
             )}
           </UserActions>
         </WrapperRight>
