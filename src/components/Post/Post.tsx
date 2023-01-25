@@ -14,7 +14,6 @@ import {
   Votes,
   Wrapper,
   CommentsContainer,
-  CancelIcon,
   UpperWrapper,
   Username,
   AddComment
@@ -65,10 +64,12 @@ const Post = (props: IPost): JSX.Element => {
   }, [comments]);
 
   const updateVotes = async() => {
-    const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
-    console.log('%c updated votes: ', 'color: aqua', updateVotes);
-    if(updatedVotes && typeof updatedVotes === 'number'){
-      setTotalVotes(updatedVotes);
+    if(userVote){
+      const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
+      console.log('%c updated votes: ', 'color: aqua', updateVotes);
+      if(updatedVotes && typeof updatedVotes === 'number'){
+        setTotalVotes(updatedVotes);
+      }
     }
   };
 
@@ -98,10 +99,6 @@ const Post = (props: IPost): JSX.Element => {
     await deletePost(id);
   };
 
-  // const handleCancelVote = async (event: any) => {
-  //   event.preventDefault();
-  //   handleVote(0);
-  // };
 
   return (
     <Wrapper>
@@ -155,16 +152,6 @@ const Post = (props: IPost): JSX.Element => {
                 </IconButton>
               </form>
             )}
-            {/* {userVote !== 0 && (
-              <form onSubmit={handleVote(0)} id={`cancelVote${id}`}>
-                <IconButton
-                  type='submit'
-                  form={`cancelVote${id}`}
-                  color='third'>
-                  <CancelIcon />
-                </IconButton>
-              </form>
-            )} */}
           </UserActions>
         </WrapperRight>
       </PostContainer>

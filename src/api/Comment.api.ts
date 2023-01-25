@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { IUserComment } from '../components';
 
 export const createComment = async (data: IUserComment) => {
@@ -6,7 +6,7 @@ export const createComment = async (data: IUserComment) => {
     const { postId, content } = data;
     const contentToSend = {
       content,
-    }
+    };
     const jwt = localStorage.getItem('user');
     const res = await axios.post(`/api/comments/${postId}`, JSON.stringify(contentToSend), {
       headers: {
@@ -16,9 +16,9 @@ export const createComment = async (data: IUserComment) => {
       }
     });
     return res.data;
-  } catch(error) {
+  } catch (error) {
     console.log('%c create comment error: ', 'color: orange', error);
-    if(error instanceof  AxiosError){
+    if (error instanceof AxiosError) {
       return error.response?.data;
     }
   }
@@ -35,7 +35,7 @@ export const getComments = async (postId: number) => {
       }
     });
     return res.data || [];
-  } catch(error){
+  } catch (error) {
     console.error(error);
   }
 };
