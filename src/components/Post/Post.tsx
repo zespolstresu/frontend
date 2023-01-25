@@ -54,29 +54,26 @@ const Post = (props: IPost): JSX.Element => {
   }, [userVote]);
 
   useEffect(() => {
-    if (userToken && tag !== 'sponsored' && showComments) {
-      loadComments();
-    }
+    loadComments();
   }, [commentsCount, showComments]);
 
   useEffect(() => {
     console.log(comments);
   }, [comments]);
 
-  const updateVotes = async() => {
-    if(userVote){
+  const updateVotes = async () => {
+    if (userVote) {
       const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
       console.log('%c updated votes: ', 'color: aqua', updatedVotes);
-      if(updatedVotes && typeof updatedVotes === 'number'){
+      if (updatedVotes && typeof updatedVotes === 'number') {
         setTotalVotes(updatedVotes);
       }
     }
   };
 
-
   const loadComments = async () => {
-    if (userToken) {
-      const deliveredComments = await getComments(id) as unknown as IComment[];
+    if (userToken && showComments) {
+      const deliveredComments: IComment[] = await getComments(id);
       if (deliveredComments && deliveredComments.length > 0) {
         setComments(deliveredComments);
       }
@@ -169,8 +166,8 @@ const Post = (props: IPost): JSX.Element => {
                   <AddComment variant="h4">Dodaj komentarz</AddComment>
                   <UserComment postId={id} />
                   {
-                    comments.map(({ username, content, postId }, index) => (
-                      <Comment key={index} username={username} content={content} />
+                    comments.map(({ username, content, postId }) => (
+                      <Comment key={postId} username={username} content={content} />
                     ))
                   }
                 </>
