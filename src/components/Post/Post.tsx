@@ -66,7 +66,7 @@ const Post = (props: IPost): JSX.Element => {
   const updateVotes = async() => {
     if(userVote){
       const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
-      console.log('%c updated votes: ', 'color: aqua', updateVotes);
+      console.log('%c updated votes: ', 'color: aqua', updatedVotes);
       if(updatedVotes && typeof updatedVotes === 'number'){
         setTotalVotes(updatedVotes);
       }
