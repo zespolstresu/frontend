@@ -16,11 +16,11 @@ const MainPagePreview = (): JSX.Element => {
     <GridWrapper
       container
       justifyContent={'center'}
-      columnSpacing={{ md: 5, lg: 10}}
+      columnSpacing={{ md: 5, lg: 10 }}
       rowSpacing={{ xs: 4, sm: 6, md: 10 }}
     >
       <Wall item md={6} >
-        <Slogan variant='h2'>Bądź na bierząco ze studentami</Slogan>
+        <Slogan variant='h2'>Bądź na bieżąco ze studentami</Slogan>
         <InfoText variant="body1">
           Na twojej tablicy będą pojawiać się ogłoszenia innych studentów. Możesz je oceniać i komentować, a także dodać własne!
         </InfoText>
