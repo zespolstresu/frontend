@@ -54,10 +54,10 @@ const Post = (props: IPost): JSX.Element => {
   }, [userVote]);
 
   useEffect(() => {
-    if (userToken && tag !== 'sponsored') {
+    if (userToken && tag !== 'sponsored' && showComments) {
       loadComments();
     }
-  }, [commentsCount]);
+  }, [commentsCount, showComments]);
 
   useEffect(() => {
     console.log(comments);
