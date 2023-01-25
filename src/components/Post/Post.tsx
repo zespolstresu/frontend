@@ -27,7 +27,7 @@ import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
 import { IconButton, Typography } from '@mui/material';
 import { UserContext } from '../../context';
-import { deletePost } from '../../api/Post.api';
+import { deletePost, sendUserVote } from '../../api/Post.api';
 import { decodeUserToken } from '../../utils';
 
 const Post = (props: IPost): JSX.Element => {
@@ -36,6 +36,7 @@ const Post = (props: IPost): JSX.Element => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [userVote, setUserVote] = useState<TVote>(0);
   const [showComments, setShowComments] = useState(false);
+  const [totalVotes, setTotalVotes] = useState(votes || 0);
 
   const date = useMemo(() => (
     dateFormat(publishDate)
@@ -50,11 +51,11 @@ const Post = (props: IPost): JSX.Element => {
   }, [userToken]);
 
   useEffect(() => {
-    // updateVote()
+    updateVotes();
   }, [userVote]);
 
   useEffect(() => {
-    if (userToken && tag !== 'other') {
+    if (userToken && tag !== 'sponsored') {
       loadComments();
     }
   }, [commentsCount]);
@@ -62,6 +63,13 @@ const Post = (props: IPost): JSX.Element => {
   useEffect(() => {
     console.log(comments);
   }, [comments]);
+
+  const updateVotes = async() => {
+    const updatedVotes = await sendUserVote(id, (votes || 0) + userVote);
+    if(updatedVotes){
+      setTotalVotes(updatedVotes);
+    }
+  };
 
 
   const loadComments = async () => {
@@ -76,15 +84,11 @@ const Post = (props: IPost): JSX.Element => {
   const handleVote = (vote: TVote) => () => {
     console.log(vote);
     console.log(userVote);
-    if (vote !== 0) {
-      userVote !== vote && setUserVote(vote);
-    } else {
-      setUserVote(vote);
-    }
+    setUserVote(vote);
   };
 
   const handleShowComments = () => {
-    if (tag !== 'other') {
+    if (tag !== 'sponsored') {
       setShowComments(prev => !prev);
     }
   };
@@ -93,10 +97,10 @@ const Post = (props: IPost): JSX.Element => {
     await deletePost(id);
   };
 
-  const handleCancelVote = async (event: any) => {
-    event.preventDefault();
-    handleVote(0);
-  };
+  // const handleCancelVote = async (event: any) => {
+  //   event.preventDefault();
+  //   handleVote(0);
+  // };
 
   return (
     <Wrapper>
@@ -109,7 +113,7 @@ const Post = (props: IPost): JSX.Element => {
             </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>
-          {tag !== 'other' && (
+          {tag !== 'sponsored' && (
             <Comments>
               <IconButton onClick={handleShowComments}>
                 <CommentIcon />
@@ -129,7 +133,7 @@ const Post = (props: IPost): JSX.Element => {
               aria-label='lubię to'>
               <ArrowUp />
             </IconButton>
-            <Typography variant='body2'>{(votes || 0) + userVote}</Typography>
+            <Typography variant='body2'>{totalVotes}</Typography>
             <IconButton
               onClick={handleVote(-1)}
               disabled={userVote === -1}
@@ -150,8 +154,8 @@ const Post = (props: IPost): JSX.Element => {
                 </IconButton>
               </form>
             )}
-            {userVote !== 0 && (
-              <form onSubmit={handleCancelVote} id={`cancelVote${id}`}>
+            {/* {userVote !== 0 && (
+              <form onSubmit={handleVote(0)} id={`cancelVote${id}`}>
                 <IconButton
                   type='submit'
                   form={`cancelVote${id}`}
@@ -159,7 +163,7 @@ const Post = (props: IPost): JSX.Element => {
                   <CancelIcon />
                 </IconButton>
               </form>
-            )}
+            )} */}
           </UserActions>
         </WrapperRight>
       </PostContainer>

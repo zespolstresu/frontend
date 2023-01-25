@@ -1,5 +1,5 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
-import {TCreatePost, TUpdatePost} from "../components/PostEditor/PostEditor.types";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { TCreatePost, TUpdatePost } from '../components/PostEditor/PostEditor.types';
 
 export const createPost = async (data: TCreatePost) => {
   try {
@@ -13,9 +13,9 @@ export const createPost = async (data: TCreatePost) => {
       }
     });
     return res.data;
-  } catch(error) {
+  } catch (error) {
     console.log('%c create post error: ', 'color: orange', error);
-    if(error instanceof  AxiosError){
+    if (error instanceof AxiosError) {
       return error.response?.data;
     }
   }
@@ -64,7 +64,7 @@ export const updatePost = async (data: TUpdatePost) => {
       }
     });
     return res.data;
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
 };
@@ -72,8 +72,6 @@ export const updatePost = async (data: TUpdatePost) => {
 export const deletePost = async (id: number) => {
   try {
     const jwt = localStorage.getItem('user');
-    console.log('id in deletePost: ', id);
-    console.log('jwt in delete post:', jwt);
     const res: AxiosResponse = await axios.delete(`/api/posts/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -82,15 +80,25 @@ export const deletePost = async (id: number) => {
       }
     });
     return res.data;
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
 };
 
-export const updatePostVotes = async (postId: number, votes: number) => {
-  const res: AxiosResponse = await axios
-    .put(`/api/posts/${postId}`, votes)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-  return res;
+export const sendUserVote = async (postId: number, votes: number) => {
+  try {
+    const data = { votes };
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios
+      .put(`/api/posts/${postId}`, JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+    return res.data || null;
+  } catch (error) {
+    console.error(error);
+  }
 };
