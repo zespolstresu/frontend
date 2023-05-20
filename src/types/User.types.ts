@@ -7,3 +7,5 @@ export interface IUser {
 }
 
 export type ILoginUser = Pick<IUser, 'username' | 'password'>;
+
+export type IUpdateUser = Pick<IUser, 'firstName' | 'lastName'>

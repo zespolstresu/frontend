@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { ILoginUser, IUser } from '../types';
+import { ILoginUser, IUpdateUser, IUser } from '../types';
 
 export const createUser = async (data: IUser) => {
   try {
@@ -50,5 +50,38 @@ export const getUserData = async () => {
     return res.data;
   } catch (error) {
     console.error(error);
+    return null;
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios.delete('/api/user', {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const updateUser = async (data: IUpdateUser) => {
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios.put('/api/user', JSON.stringify(data), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
