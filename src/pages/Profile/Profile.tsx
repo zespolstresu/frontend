@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Heading } from '../../styles/commonStyles';
+import { Heading, TextField } from '../../styles/commonStyles';
 import { UserData, Container, ButtonsWrapper, AccountIcon } from './Profile.styles';
 import { getUserData, deleteUser, updateUser } from '../../api/User.api';
-import { Typography, Button, TextField } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { IUser } from './Profile.types';
 import { useNavigate } from 'react-router-dom';
 import { Modal as DeleteAccount } from '../../components';
@@ -16,24 +16,28 @@ const Profile = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState('');
   const [userData, setUserData] = useState<IUser>(initialState);
   const { firstName, lastName, username, email } = userData;
+  const [firstNameEdit, setFirstNameEdit] = useState('');
+  const [lastNameEdit, setLastNameEdit] = useState('');
 
   const loadUserData = async () => {
     const user = await getUserData();
     setUserData(user as IUser);
+    setFirstNameEdit(user?.firstName);
+    setLastNameEdit(user?.lastName);
   };
 
   const handleUpdateUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     const dataToUpdate: IUpdateUser = {
-      firstName: data.get('firstName')?.toString() || '',
-      lastName: data.get('lastName')?.toString() || ''
+      firstName: firstNameEdit,
+      lastName: lastNameEdit
     };
     const updatedUser = await updateUser(dataToUpdate);
     if (!updatedUser) {
       setErrorMessage('Nieprawidłowe imię lub nazwisko');
     } else {
-      navigate('/');
+      setIsEditingAccount(false);
+      document.location.reload();
     }
   };
 
@@ -46,6 +50,10 @@ const Profile = (): JSX.Element => {
     }
   };
 
+  const handleCancelEditAccount = () => {
+    setIsEditingAccount(false);
+  };
+
   const handleClickEditAccount = () => {
     setIsEditingAccount(prev => !prev);
   };
@@ -53,6 +61,15 @@ const Profile = (): JSX.Element => {
   useEffect(() => {
     loadUserData();
   }, []);
+
+
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstNameEdit(event.target.value);
+  };
+
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastNameEdit(event.target.value);
+  };
 
   return (
     <Container>
@@ -64,7 +81,9 @@ const Profile = (): JSX.Element => {
             <TextField
               margin="normal"
               required
-              name="password"
+              name="firstName"
+              onChange={handleFirstNameChange}
+              value={firstNameEdit}
               label="Imię"
               type="text"
               id="firstName"
@@ -73,12 +92,20 @@ const Profile = (): JSX.Element => {
             <TextField
               margin="normal"
               required
-              name="password"
+              name="lastName"
+              onChange={handleLastNameChange}
               label="Nazwisko"
+              value={lastNameEdit}
               type="text"
               id="lastName"
               autoComplete="last-name"
             />
+            <Button variant="contained" color="secondary" type='submit' sx={{ width: '160px' }}>
+              Zatwierdź
+            </Button>
+            <Button variant="text" color="primary" sx={{ width: '160px' }} onClick={handleCancelEditAccount}>
+              Anuluj
+            </Button>
             <ErrorMessage>{errorMessage}</ErrorMessage>
           </UserData>
         ) : (
