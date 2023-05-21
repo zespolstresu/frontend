@@ -41,6 +41,7 @@ export const Button = styled(MuiButton)({
 });
 
 export const Textarea = styled(TextareaAutosize)(({ theme }) => ({
+  fontFamily: '"Montserrat", sans-serif',
   width: '100%',
   minHeight: 70,
   padding: theme.spacing(2),

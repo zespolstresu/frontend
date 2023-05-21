@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Heading } from '../../styles/commonStyles';
-import { UserData, Container } from './Profile.styles';
+import { UserData, Container, ButtonsWrapper, AccountIcon } from './Profile.styles';
 import { getUserData, deleteUser, updateUser } from '../../api/User.api';
-import { Typography, Button, TextField, Box } from '@mui/material';
+import { Typography, Button, TextField } from '@mui/material';
 import { IUser } from './Profile.types';
 import { useNavigate } from 'react-router-dom';
-// import { Modal as DeleteAccount } from './components';
+import { Modal as DeleteAccount } from '../../components';
 import { IUpdateUser } from '../../types';
 import { ErrorMessage } from '../Register/Register.styles';
 import { initialState } from './Profile.constants';
@@ -56,6 +56,7 @@ const Profile = (): JSX.Element => {
 
   return (
     <Container>
+      <AccountIcon color='secondary' />
       <Heading variant='h1'>Twój profil</Heading>
       {
         isEditingAccount ? (
@@ -86,17 +87,17 @@ const Profile = (): JSX.Element => {
             <Typography variant='body2'>Nazwisko: <span>{lastName}</span></Typography>
             <Typography variant='body2'>Nick: <span>{username}</span></Typography>
             <Typography variant='body2'>Email: <span>{email}</span></Typography>
-            <Box>
-              {/* <DeleteAccount
-                buttonText='Usuń konto'
-                title='Usuń swoje konto'
-                description='Czy na pewno chcesz usunąć konto? Zatwierdzając bezpowrotnie stracisz do niego dostęp.'
-                actionFunction={handleDeleteAccount}
-              /> */}
-              <Button variant="text" color="primary" onClick={handleClickEditAccount}>
+            <ButtonsWrapper>
+              <Button variant="contained" color="primary" onClick={handleClickEditAccount}>
                 Edytuj konto
               </Button>
-            </Box>
+              <DeleteAccount
+                buttonText='Usuń konto'
+                title='Usuń swoje konto'
+                description='Czy na pewno chcesz usunąć konto? Zatwierdzając bezpowrotnie stracisz do niego dostęp. Aby anulować, kliknij gdziekolwiek poza modalem.'
+                actionFunction={handleDeleteAccount}
+              />
+            </ButtonsWrapper>
           </UserData>
         )
       }

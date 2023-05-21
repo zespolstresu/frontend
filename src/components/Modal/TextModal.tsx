@@ -1,7 +1,7 @@
-import { Box, Modal as MuiModal, IconButton } from '@mui/material';
+import { Box, Modal as MuiModal, IconButton, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { ITextModalProps } from './Modal.types';
-import { EditIcon, TextModalWrapper } from './Modal.styles';
+import { Container, EditIcon, ModalWrapper } from './Modal.styles';
 import { updatePost } from '../../api/Post.api';
 import { Textarea, Button, PublishIcon } from '../PostEditor/PostEditor.styles';
 
@@ -18,9 +18,9 @@ export default function TextModal(props: ITextModalProps) {
   };
 
   const handleClick = async () => {
-    // actionFunction(content);
-    const res = await updatePost({ content, id: postId });
+    await updatePost({ content, id: postId });
     handleClose();
+    document.location.reload();
   };
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,7 +28,7 @@ export default function TextModal(props: ITextModalProps) {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Container>
       <IconButton
         type='submit'
         onClick={handleOpen}
@@ -40,14 +40,17 @@ export default function TextModal(props: ITextModalProps) {
         onClose={handleClose}
         aria-labelledby="modal-title"
       >
-        <TextModalWrapper>
-          <h2 id="modal-title">{title}</h2>
+        <ModalWrapper>
+          <Typography variant='h3' id="modal-title" sx={(theme) => ({ marginBottom: theme.spacing(2), fontWeight: 700, color: theme.palette.text.dark })}>{title}</Typography>
           <Textarea
+            sx={{ paddingBottom: '40px' }}
             spellCheck='false'
             name='content'
+            value={content}
             onChange={handleContentChange}
           />
           <Button
+            sx={{ position: 'absolute', bottom: -50, left: 0, fontSize: 16 }}
             onClick={handleClick}
             form='postForm'
             type='submit'
@@ -56,8 +59,8 @@ export default function TextModal(props: ITextModalProps) {
             endIcon={<PublishIcon />}>
             Zatwierdź
           </Button>
-        </TextModalWrapper>
+        </ModalWrapper>
       </MuiModal>
-    </Box>
+    </Container >
   );
 }

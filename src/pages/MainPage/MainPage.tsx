@@ -45,11 +45,11 @@ const MainPage = (): JSX.Element => {
       loadSearchedPosts(inputRef.current.value).then(response => {
         if (!response) {
           setErrorMessage('Nie znaleziono postów zawierających podaną frazę.');
-          const sponsoredPosts = posts.filter(post => post.tag === 'sponsored');
           setPosts(sponsoredPosts);
         } else {
           console.log(response);
-          setPosts(response);
+          const postsWithoutSponsored = response.filter((el: IPost) => el.tag !== 'sponsored');
+          setPosts([...postsWithoutSponsored, sponsoredPosts].sort((a, b) => b.id - a.id));
         }
       });
 

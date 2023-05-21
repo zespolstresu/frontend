@@ -90,7 +90,7 @@ const Post = (props: IPost): JSX.Element => {
   };
 
   const handlePostEdit = () => {
-    setIsEditingPost(true);
+    // setIsEditingPost(true);
   };
 
   const handleVote = (vote: TVote) => () => {
@@ -152,7 +152,7 @@ const Post = (props: IPost): JSX.Element => {
                   <DeleteIcon />
                 </IconButton>
                 {/* edycja posta */}
-                <TextModal  title='Edytuj ogłoszenie' data={content} postId={id}/>
+                <TextModal  title='Edytuj ogłoszenie' data={content} postId={id} />
               </Box>
             )}
             {userVote !== 0 && (

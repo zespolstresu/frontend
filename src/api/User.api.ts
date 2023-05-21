@@ -60,6 +60,7 @@ export const deleteUser = async () => {
     const jwt = localStorage.getItem('user');
     const res: AxiosResponse = await axios.delete('/api/user', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`
       }
     });
