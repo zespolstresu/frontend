@@ -5,7 +5,7 @@ import { getUserData, deleteUser, updateUser } from '../../api/User.api';
 import { Typography, Button, TextField, Box } from '@mui/material';
 import { IUser } from './Profile.types';
 import { useNavigate } from 'react-router-dom';
-import { Modal as DeleteAccount } from './components';
+// import { Modal as DeleteAccount } from './components';
 import { IUpdateUser } from '../../types';
 import { ErrorMessage } from '../Register/Register.styles';
 import { initialState } from './Profile.constants';
@@ -87,12 +87,12 @@ const Profile = (): JSX.Element => {
             <Typography variant='body2'>Nick: <span>{username}</span></Typography>
             <Typography variant='body2'>Email: <span>{email}</span></Typography>
             <Box>
-              <DeleteAccount
+              {/* <DeleteAccount
                 buttonText='Usuń konto'
                 title='Usuń swoje konto'
                 description='Czy na pewno chcesz usunąć konto? Zatwierdzając bezpowrotnie stracisz do niego dostęp.'
                 actionFunction={handleDeleteAccount}
-              />
+              /> */}
               <Button variant="text" color="primary" onClick={handleClickEditAccount}>
                 Edytuj konto
               </Button>

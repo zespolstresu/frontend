@@ -5,3 +5,8 @@ export interface IModalProps {
   buttonText: string;
   actionFunction: () => void;
 }
+
+export interface ITextModalProps {
+  title: string;
+  data: string;
+}

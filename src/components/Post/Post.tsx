@@ -25,10 +25,11 @@ import { getComments } from '../../api/Comment.api';
 import UserComment from '../UserComment/UserComment';
 import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
-import { IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { UserContext } from '../../context';
 import { deletePost, sendUserVote } from '../../api/Post.api';
 import { decodeUserToken } from '../../utils';
+import { TextModal } from '../Modal';
 
 const Post = (props: IPost): JSX.Element => {
   const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
@@ -36,7 +37,8 @@ const Post = (props: IPost): JSX.Element => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [showComments, setShowComments] = useState(false);
   const [totalVotes, setTotalVotes] = useState(votes || 0);
-  
+  const [isEditingPost, setIsEditingPost] = useState(false);
+
   const userVote = totalVotes - (votes || 0);
 
   const date = useMemo(() => (
@@ -82,8 +84,12 @@ const Post = (props: IPost): JSX.Element => {
     }
   };
 
-  const handlePostDelete = async (event: any) => {
+  const handlePostDelete = async () => {
     await deletePost(id);
+  };
+
+  const handlePostEdit = () => {
+    setIsEditingPost(true);
   };
 
   const handleVote = (vote: TVote) => () => {
@@ -137,14 +143,16 @@ const Post = (props: IPost): JSX.Element => {
           </Votes>
           <UserActions>
             {decodedUsername === username && (
-              <form onSubmit={handlePostDelete} id={`deletePost${id}`}>
+              <Box>
                 <IconButton
                   type='submit'
-                  form={`deletePost${id}`}
+                  onClick={handlePostDelete}
                   color='third'>
                   <DeleteIcon />
                 </IconButton>
-              </form>
+                {/* edycja posta */}
+                <TextModal  title='Edytuj ogłoszenie' data={content} />
+              </Box>
             )}
             {userVote !== 0 && (
               <IconButton

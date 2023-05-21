@@ -7,6 +7,7 @@ import { Wall, StickySidebar } from './MainPage.styles';
 import { Typography } from '@mui/material';
 import { GridWrapper } from '../../styles/commonStyles';
 import { UserContext } from '../../context';
+import { toast, ToastContainer } from 'react-toastify';
 
 const MainPage = (): JSX.Element => {
   const { userToken } = useContext(UserContext);
