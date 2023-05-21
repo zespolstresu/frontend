@@ -18,6 +18,7 @@ const UserComment = ({ postId }: IPostData): JSX.Element => {
       setSwearWordsError(response);
       event.preventDefault();
     }
+    document.location.reload();
   };
 
   return (

@@ -47,18 +47,44 @@ export const getOneComment = async (id: number) => {
   return res;
 };
 
-export const updateComment = async (data: unknown, id: number) => {
-  const res = await axios
-    .put(`/api/comments/${id}`, data)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-  return res;
+interface TUpdateComment {
+  id: number;
+  content: string;
+}
+
+
+export const updateComment = async (data: TUpdateComment) => {
+  const { id, content } = data;
+  const requestData = {
+    content
+  };
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios.put(`/api/comments/${id}`, JSON.stringify(requestData), {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const deleteComment = async (id: number) => {
-  const res = await axios
-    .delete(`/api/comments/${id}`)
-    .then(res => res.data)
-    .catch(err => console.error(err));
-  return res;
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios.delete(`/api/comments/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwt}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

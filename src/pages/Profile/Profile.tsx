@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heading, TextField } from '../../styles/commonStyles';
 import { UserData, Container, ButtonsWrapper, AccountIcon } from './Profile.styles';
 import { getUserData, deleteUser, updateUser } from '../../api/User.api';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Box } from '@mui/material';
 import { IUser } from './Profile.types';
 import { useNavigate } from 'react-router-dom';
 import { Modal as DeleteAccount } from '../../components';
@@ -100,12 +100,14 @@ const Profile = (): JSX.Element => {
               id="lastName"
               autoComplete="last-name"
             />
-            <Button variant="contained" color="secondary" type='submit' sx={{ width: '160px' }}>
-              Zatwierdź
-            </Button>
-            <Button variant="text" color="primary" sx={{ width: '160px' }} onClick={handleCancelEditAccount}>
-              Anuluj
-            </Button>
+            <Box sx={{ display: 'flex', gap: 24 }}>
+              <Button variant="contained" color="secondary" type='submit' sx={{ width: '160px' }}>
+                Zatwierdź
+              </Button>
+              <Button variant="text" color="primary" sx={{ width: '160px' }} onClick={handleCancelEditAccount}>
+                Anuluj
+              </Button>
+            </Box>
             <ErrorMessage>{errorMessage}</ErrorMessage>
           </UserData>
         ) : (

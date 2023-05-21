@@ -37,7 +37,6 @@ const Post = (props: IPost): JSX.Element => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [showComments, setShowComments] = useState(false);
   const [totalVotes, setTotalVotes] = useState(votes || 0);
-  const [isEditingPost, setIsEditingPost] = useState(false);
 
   const userVote = totalVotes - (votes || 0);
 
@@ -87,10 +86,7 @@ const Post = (props: IPost): JSX.Element => {
 
   const handlePostDelete = async () => {
     await deletePost(id);
-  };
-
-  const handlePostEdit = () => {
-    // setIsEditingPost(true);
+    document.location.reload();
   };
 
   const handleVote = (vote: TVote) => () => {
@@ -172,7 +168,7 @@ const Post = (props: IPost): JSX.Element => {
             previewVersion
               ? (
                 mockCommentsJson.map(({ username, content, postId }, index) => postId === id && (
-                  <Comment key={index} username={username} content={content} />
+                  <Comment key={index} username={username} content={content} id={index} />
                 ))
               )
               : (
@@ -180,8 +176,8 @@ const Post = (props: IPost): JSX.Element => {
                   <AddComment variant="h4">Dodaj komentarz</AddComment>
                   <UserComment postId={id} />
                   {
-                    comments.map(({ username, content, postId }) => (
-                      <Comment key={postId} username={username} content={content} />
+                    comments.map(({ username, content, id }) => (
+                      <Comment key={id} username={username} content={content} id={id} />
                     ))
                   }
                 </>
