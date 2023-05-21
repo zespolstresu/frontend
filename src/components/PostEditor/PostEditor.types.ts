@@ -13,5 +13,5 @@ export const VPost = yup.object().shape({
 
 export type TCreatePost = Pick<IPost, 'tag' | 'content' | 'publishDate' | 'votes' >;
 export type TValidatePost = Pick<IPost, 'tag' | 'content'>;
-export type TUpdatePost = Pick<IPost, 'tag' | 'content' | 'votes' | 'id'>;
+export type TUpdatePost = Pick<IPost, 'content' | 'id'>;
 export type TDeletePost = Pick<IPost, 'id'>;

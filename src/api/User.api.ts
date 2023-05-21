@@ -25,12 +25,13 @@ export const loginUser = async (data: ILoginUser) => {
       .post('/api/auth/authenticate', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
           'Access-Control-Allow-Origin': '*'
         }
       });
     return res.data;
   } catch (error) {
-    console.log('%c register error: ', 'color: orange', error);
+    console.log('%c login error: ', 'color: orange', error);
     if (error instanceof AxiosError) {
       return null;
     }

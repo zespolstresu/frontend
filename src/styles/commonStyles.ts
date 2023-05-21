@@ -70,22 +70,22 @@ export const TextField = styled(MuiTextField)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: theme.palette.text.light,
+      borderColor: theme.palette.primary.main,
       // backgroundColor: theme.palette.common.orange
     },
     '&:hover fieldset': {
-      borderColor: theme.palette.secondary.dark,
+      borderColor: theme.palette.text.light,
     },
     // '& .Mui-focused fieldset': {
     //   borderColor: theme.palette.text.light,
     // },
     '& .MuiSvgIcon-root': {
-      color: theme.palette.text.light,
-      fill: theme.palette.text.light,
+      color: theme.palette.primary.main,
+      fill: theme.palette.primary.main,
     },
     '& .MuiAutocomplete-endAdornment': {
-      color: theme.palette.text.light,
-      fill: theme.palette.text.light,
+      color: theme.palette.primary.main,
+      fill: theme.palette.primary.main,
     },
   },
   '& input': {

@@ -54,7 +54,9 @@ const Post = (props: IPost): JSX.Element => {
   }, [userToken]);
 
   useEffect(() => {
-    updateVotes();
+    if(userToken){
+      updateVotes();
+    }
   }, [totalVotes]);
 
   useEffect(() => {
@@ -63,7 +65,6 @@ const Post = (props: IPost): JSX.Element => {
 
   const updateVotes = async () => {
     const updatedVotes = await sendUserVote(id, totalVotes);
-    console.log('%c updated votes: ', 'color: aqua', updatedVotes);
     if (updatedVotes && typeof updatedVotes === 'number') {
       setTotalVotes(updatedVotes);
     }
@@ -151,7 +152,7 @@ const Post = (props: IPost): JSX.Element => {
                   <DeleteIcon />
                 </IconButton>
                 {/* edycja posta */}
-                <TextModal  title='Edytuj ogłoszenie' data={content} />
+                <TextModal  title='Edytuj ogłoszenie' data={content} postId={id}/>
               </Box>
             )}
             {userVote !== 0 && (

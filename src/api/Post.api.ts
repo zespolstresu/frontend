@@ -4,7 +4,6 @@ import { TCreatePost, TUpdatePost } from '../components/PostEditor/PostEditor.ty
 export const createPost = async (data: TCreatePost) => {
   try {
     const jwt = localStorage.getItem('user');
-    console.log('jwt in create post:', jwt);
     const res: AxiosResponse = await axios.post('/api/posts', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +23,6 @@ export const createPost = async (data: TCreatePost) => {
 export const getPosts = async () => {
   try {
     const jwt = localStorage.getItem('user');
-    console.log(`%c Bearer ${jwt}`, 'color: magenta');
     const res: AxiosResponse = await axios
       .get('/api/posts', {
         headers: {
@@ -47,15 +45,12 @@ export const getOnePost = async (id: number) => {
 };
 
 export const updatePost = async (data: TUpdatePost) => {
-  const { id, votes, content, tag } = data;
+  const { id, content } = data;
   const requestData = {
-    tag,
-    content,
-    votes
+    content
   };
   try {
     const jwt = localStorage.getItem('user');
-    console.log('jwt in create post:', jwt);
     const res: AxiosResponse = await axios.put(`/api/posts/${id}`, JSON.stringify(requestData), {
       headers: {
         'Content-Type': 'application/json',
@@ -86,11 +81,30 @@ export const deletePost = async (id: number) => {
 };
 
 export const sendUserVote = async (postId: number, votes: number) => {
+  // api/posts/{id}/votes/{liczba głosów}
   try {
     const data = { votes };
     const jwt = localStorage.getItem('user');
     const res: AxiosResponse = await axios
-      .put(`/api/posts/${postId}`, JSON.stringify(data), {
+      .put(`/api/posts/${postId}/votes/${votes}`, JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+    return res.data || null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+export const loadSearchedPosts = async (searchValue: string) => {
+  try {
+    const jwt = localStorage.getItem('user');
+    const res: AxiosResponse = await axios
+      .get(`/api/posts/search?value=${searchValue}`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',

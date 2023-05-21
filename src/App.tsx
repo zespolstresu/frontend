@@ -8,7 +8,6 @@ import { UserContext } from './context';
 
 const App = () => {
   const [userToken, setUserToken] = useState(localStorage.getItem('user'));
-  console.log('%c Logged user: ', 'color: #3fd4ee', userToken);
 
   return (
     <ThemeProvider theme={spotUSTheme}>

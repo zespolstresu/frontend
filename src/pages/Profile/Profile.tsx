@@ -40,7 +40,7 @@ const Profile = (): JSX.Element => {
   const handleDeleteAccount = async () => {
     const res = await deleteUser();
     if (!res) {
-      console.log('cannot delete ur account');
+      setErrorMessage('Nie można usunąć konta. Spróbuj ponownie później.');
     } else {
       navigate('/');
     }

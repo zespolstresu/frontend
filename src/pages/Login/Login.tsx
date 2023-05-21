@@ -32,15 +32,16 @@ const Login = (): JSX.Element => {
     const jwtObject = await loginUser(userData);
     if (!jwtObject) {
       setErrorMessage('Nieprawidłowy nick lub hasło');
-    }
-    const jwt = jwtObject.token;
-    if (!localStorage.getItem('user')) {
-      localStorage.setItem('user', jwt);
-      setUserToken(jwt);
-    }
-
-    if (jwt) {
-      navigate('/');
+    } else {
+      const jwt = jwtObject.token;
+      if (!localStorage.getItem('user')) {
+        localStorage.setItem('user', jwt);
+        setUserToken(jwt);
+      }
+  
+      if (jwt) {
+        navigate('/');
+      }
     }
   };
 

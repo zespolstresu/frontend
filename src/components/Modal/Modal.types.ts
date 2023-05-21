@@ -9,4 +9,5 @@ export interface IModalProps {
 export interface ITextModalProps {
   title: string;
   data: string;
+  postId: number;
 }

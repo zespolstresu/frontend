@@ -1,11 +1,12 @@
-import { Button, Box, Modal as MuiModal, TextField, IconButton } from '@mui/material';
+import { Box, Modal as MuiModal, IconButton } from '@mui/material';
 import React, { useState } from 'react';
-import {  ITextModalProps } from './Modal.types';
-import { EditIcon } from './Modal.styles';
+import { ITextModalProps } from './Modal.types';
+import { EditIcon, TextModalWrapper } from './Modal.styles';
 import { updatePost } from '../../api/Post.api';
+import { Textarea, Button, PublishIcon } from '../PostEditor/PostEditor.styles';
 
 export default function TextModal(props: ITextModalProps) {
-  const { title, data } = props;
+  const { title, data, postId } = props;
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState(data);
   const handleOpen = () => {
@@ -18,16 +19,16 @@ export default function TextModal(props: ITextModalProps) {
 
   const handleClick = async () => {
     // actionFunction(content);
-    const res = await updatePost(content);
+    const res = await updatePost({ content, id: postId });
     handleClose();
   };
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <IconButton
         type='submit'
         onClick={handleOpen}
@@ -39,18 +40,23 @@ export default function TextModal(props: ITextModalProps) {
         onClose={handleClose}
         aria-labelledby="modal-title"
       >
-        <Box>
+        <TextModalWrapper>
           <h2 id="modal-title">{title}</h2>
-          <TextField
-            id=""
-            label=""
-            value={content}
+          <Textarea
+            spellCheck='false'
+            name='content'
             onChange={handleContentChange}
-            required
-            fullWidth
           />
-          <Button onClick={handleClick}>Potwierdź</Button>
-        </Box>
+          <Button
+            onClick={handleClick}
+            form='postForm'
+            type='submit'
+            variant='text'
+            color='primary'
+            endIcon={<PublishIcon />}>
+            Zatwierdź
+          </Button>
+        </TextModalWrapper>
       </MuiModal>
     </Box>
   );

@@ -10,7 +10,6 @@ import { GridWrapper, InfoText } from '../../styles/commonStyles';
 const previewPosts = mockPostsJSON as IPost[];
 
 const MainPagePreview = (): JSX.Element => {
-  console.log('%c You are on Main Page preview for unauthenticated visitor', 'color: #47bbff');
 
   return (
     <GridWrapper
