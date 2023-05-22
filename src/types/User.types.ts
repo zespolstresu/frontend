@@ -4,6 +4,7 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
+  isSpecialBadge?: boolean;
 }
 
 export type ILoginUser = Pick<IUser, 'username' | 'password'>;

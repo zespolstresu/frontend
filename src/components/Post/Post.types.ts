@@ -19,6 +19,7 @@ export interface IPost {
   commentsCount?: number;
   votes?: number;
   previewVersion?: boolean;
+  isSpecialBadge?: boolean;
 }
 
 export type TCategoryColors = Record<TTag, string>;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getPosts, loadSearchedPosts } from '../../api/Post.api';
 import { Post } from '../../components';
 import { IPost } from '../../components/Post/Post.types';
@@ -6,14 +6,11 @@ import PostEditor from '../../components/PostEditor/PostEditor';
 import { Wall, StickySidebar } from './MainPage.styles';
 import { Typography } from '@mui/material';
 import { GridWrapper } from '../../styles/commonStyles';
-import { UserContext } from '../../context';
-import { toast, ToastContainer } from 'react-toastify';
 import { TextField } from '../../styles/commonStyles';
 import ClearIcon from '@mui/icons-material/Clear';
 import { ClearButton, Wrapper } from './components/SearchPosts/SearchPosts.styles';
 
 const MainPage = (): JSX.Element => {
-  const { userToken } = useContext(UserContext);
   const timeout = useRef<any>(null);
   const inputRef = useRef<any>(null);
   const [posts, setPosts] = useState<IPost[]>([]);

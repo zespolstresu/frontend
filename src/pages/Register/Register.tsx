@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Avatar, Button, Link, Grid, Box, Typography } from '@mui/material';
+import { Avatar, Button, Link, Grid, Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Wrapper from '@mui/material/Container';
@@ -7,12 +7,13 @@ import { Copyright } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/User.api';
 import { ErrorMessage, StyledLink, ControlLabel } from './Register.styles';
-import {TextField} from '../../styles/commonStyles';
+import { TextField } from '../../styles/commonStyles';
 
 
 const Register = (): JSX.Element => {
   const navigate = useNavigate();
   const [errorEmailMessage, setEmailErrorMessage] = useState('');
+  const [isSpecialBadge, setisSpecialBadge] = useState(false);
   const [errorUsernameMessage, setUsernameErrorMessage] = useState('');
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +25,7 @@ const Register = (): JSX.Element => {
       firstName: data.get('firstName')?.toString() || '',
       lastName: data.get('lastName')?.toString() || '',
       username: data.get('username')?.toString() || '',
+      isSpecialBadge: isSpecialBadge
     };
 
     const jwtObject = await createUser(userData);
@@ -36,6 +38,10 @@ const Register = (): JSX.Element => {
     if (jwt) {
       navigate('/login');
     }
+  };
+
+  const handleSetSpecialBadge = () => {
+    setisSpecialBadge(prev => !prev);
   };
 
   return (
@@ -55,7 +61,7 @@ const Register = (): JSX.Element => {
           <Typography component="h1" variant="h2">
             Zarejestruj się
           </Typography>
-          <Typography variant='body2' sx={{textAlign: 'center'}}>
+          <Typography variant='body2' sx={{ textAlign: 'center' }}>
             Po zalogowaniu przeniesiemy cię na stronę logowania. Zapamiętaj dane!
           </Typography>
           <Box component="form" onSubmit={handleRegister} sx={{ mt: 3 }}>
@@ -118,8 +124,13 @@ const Register = (): JSX.Element => {
               </Grid>
               <Grid item xs={12}>
                 <ControlLabel
-                  control={<Checkbox value="allowExtraEmails"  />}
+                  control={<Checkbox value="allowExtraEmails" color='secondary' required />}
                   label="Akceptuję regulamin serwisu."
+                />
+                <ControlLabel
+                  onClick={handleSetSpecialBadge}
+                  control={<Checkbox value="allowPremiumMode" color='secondary' />}
+                  label="Chcę mieć konto premium 🔥"
                 />
                 <StyledLink href='/termsOfUse'>Zapoznaj się z regulaminem pod tym linkiem</StyledLink>
               </Grid>
@@ -132,7 +143,7 @@ const Register = (): JSX.Element => {
             >
               Zarejestruj
             </Button>
-            <Link href="/login" variant="body2" style={{textAlign: 'center', display: 'block', fontWeight: 700}}>
+            <Link href="/login" variant="body2" style={{ textAlign: 'center', display: 'block', fontWeight: 700 }}>
               Masz już konto? Zaloguj
             </Link>
           </Box>

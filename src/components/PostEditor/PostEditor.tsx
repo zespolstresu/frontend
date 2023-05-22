@@ -1,16 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
 import { tags } from '../Post/Post.types';
 import { Container, PublishIcon, Wrapper, Button, Textarea, AutoComplete, Form, Heading } from './PostEditor.styles';
 import usePostProcess from '../../hooks/usePostProcess';
 import { createPost } from '../../api/Post.api';
 import { ErrorMessage } from '../../pages/Register/Register.styles';
+import { getUserData } from '../../api/User.api';
+import { IUser } from '../../types';
 
 
 const PostEditor = (): JSX.Element => {
   const { post, setPost, handlePostValidation, findError } = usePostProcess();
   const [swearWordsError, setSwearWordsError] = useState('');
   const autocompleteRef = useRef<any>(null);
+  const [user, setUser] = useState<IUser>();
+
+  const loadUserData = async () => {
+    const user = await getUserData();
+    setUser(user);
+  };
+
+  useEffect(() => {
+    loadUserData();
+  });
 
   /**
   * A function that takes in an event and sets the state of the post.
@@ -61,7 +73,7 @@ const PostEditor = (): JSX.Element => {
             id="tag"
             ref={autocompleteRef}
             onChange={handleAutocompleteChange}
-            options={tags}
+            options={user?.isSpecialBadge ? [...tags, { label: 'sponsored' }] : tags}
             renderInput={(params) => <TextField color='secondary' {...params} label="Tag" />}
           />
           {findError('tag')}

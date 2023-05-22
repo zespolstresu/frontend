@@ -8,9 +8,11 @@ import DownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MuiDeleteIcon from '@mui/icons-material/Delete';
 import gradientColors from '../../utils/gradientColors';
 import MuiCancelIcon from '@mui/icons-material/Cancel';
+import MuiPremiumIcon from '@mui/icons-material/AutoAwesome';
 
-export const Username = styled(Typography)(({theme}) => ({
-  color: theme.palette.primary.contrastText
+export const Username = styled(Typography)<{isPremium: boolean}>(({theme, isPremium}) => ({
+  color: isPremium ?  theme.palette.secondary.main : theme.palette.primary.contrastText,
+  fontSize: isPremium ? '14px !important ' : 'initial'
 }));
 
 export const AddComment = styled(Typography)(({theme}) => ({
@@ -117,6 +119,13 @@ export const DeleteIcon = styled(MuiDeleteIcon)({
 export const CancelIcon = styled(MuiCancelIcon)({
   width: 20,
   height: 20,
+});
+
+export const PremiumIcon = styled(MuiPremiumIcon)({
+  width: 26,
+  height: 26,
+  display: 'inline !important',
+  verticalAlign: 'middle',
 });
 
 export const Comments = styled(Box)(({ theme }) => ({

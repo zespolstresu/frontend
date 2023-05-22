@@ -17,7 +17,8 @@ import {
   UpperWrapper,
   Username,
   AddComment,
-  CancelIcon
+  CancelIcon,
+  PremiumIcon
 } from './Post.styles';
 import { IComment } from '../Comment/Comment.types';
 import mockCommentsJson from '../../mocks/Comment.mocks.json';
@@ -32,7 +33,7 @@ import { decodeUserToken } from '../../utils';
 import { TextModal } from '../Modal';
 
 const Post = (props: IPost): JSX.Element => {
-  const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
+  const { id, tag, username, isSpecialBadge, content, commentsCount, publishDate, votes, previewVersion } = props;
   const { userToken } = useContext(UserContext);
   const [comments, setComments] = useState<IComment[]>([]);
   const [showComments, setShowComments] = useState(false);
@@ -53,7 +54,7 @@ const Post = (props: IPost): JSX.Element => {
   }, [userToken]);
 
   useEffect(() => {
-    if(userToken){
+    if (userToken) {
       updateVotes();
     }
   }, [totalVotes]);
@@ -104,7 +105,7 @@ const Post = (props: IPost): JSX.Element => {
           <UpperWrapper>
             <UserInfo>
               <Typography variant='h4'>@{tag}</Typography>
-              <Username variant='h3'>{username}</Username>
+              <Username variant='h3' isPremium={!!isSpecialBadge}>{username} {isSpecialBadge && <PremiumIcon color='secondary' />}</Username>
             </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>
@@ -148,7 +149,7 @@ const Post = (props: IPost): JSX.Element => {
                   <DeleteIcon />
                 </IconButton>
                 {/* edycja posta */}
-                <TextModal  title='Edytuj ogłoszenie' data={content} postId={id} />
+                <TextModal title='Edytuj ogłoszenie' data={content} postId={id} />
               </Box>
             )}
             {userVote !== 0 && (

@@ -12,4 +12,7 @@ export const StyledLink = styled(Link)(({ theme }) => ({
 
 export const ControlLabel = styled(FormControlLabel)(({ theme }) => ({
   fontSize: 16,
+  '& .MuiTypography-root': {
+    color: theme.palette.text.light
+  }
 }));
