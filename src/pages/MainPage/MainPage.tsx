@@ -44,9 +44,8 @@ const MainPage = (): JSX.Element => {
           setErrorMessage('Nie znaleziono postów zawierających podaną frazę.');
           setPosts(sponsoredPosts);
         } else {
-          console.log(response);
           const postsWithoutSponsored = response.filter((el: IPost) => el.tag !== 'sponsored');
-          setPosts([...postsWithoutSponsored, sponsoredPosts].sort((a, b) => b.id - a.id));
+          setPosts([...postsWithoutSponsored, ...sponsoredPosts].sort((a, b) => b.id - a.id));
         }
       });
 

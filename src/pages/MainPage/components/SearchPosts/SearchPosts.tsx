@@ -12,10 +12,8 @@ const SearchPosts = (): JSX.Element => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const handleDebouncedSearch = async () => {
-    console.log(inputRef.current.value);
     clearTimeout(timeout.current);
     timeout.current = setTimeout(() => {
-      console.log('szukaj');
       loadSearchedPosts(inputRef.current.value).then(response => {
         if (!response) {
           console.error('error');
