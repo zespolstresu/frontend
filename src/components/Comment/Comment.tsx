@@ -1,16 +1,16 @@
 import { Box, IconButton, Typography } from '@mui/material';
-import React, { useContext, useMemo } from 'react';
+import React, {  useMemo } from 'react';
 import { Container } from './Comment.styles';
 import { IComment } from './Comment.types';
-import { UserContext } from '../../context';
 import { decodeUserToken } from '../../utils';
 import { DeleteIcon, UserActions } from '../Post/Post.styles';
 import { deleteComment } from '../../api/Comment.api';
 import CommentModal from '../Modal/CommentModal';
+import { useAuthContext } from '../../context';
 
 const Comment = (props: IComment): JSX.Element => {
   const { username, content, id } = props;
-  const { userToken } = useContext(UserContext);
+  const { userToken } = useAuthContext();
   const decodedUsername = useMemo(() => {
     const username = userToken ? decodeUserToken(userToken) : '';
     if (username) {

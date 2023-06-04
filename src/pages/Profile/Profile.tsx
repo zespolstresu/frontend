@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Heading, TextField } from '../../styles/commonStyles';
 import { UserData, Container, ButtonsWrapper, AccountIcon } from './Profile.styles';
-import { getUserData, deleteUser, updateUser } from '../../api/User.api';
+import { deleteUser, updateUser } from '../../api/User.api';
 import { Typography, Button, Box } from '@mui/material';
-import { IUser } from './Profile.types';
 import { useNavigate } from 'react-router-dom';
 import { Modal as DeleteAccount } from '../../components';
 import { IUpdateUser } from '../../types';
 import { ErrorMessage } from '../Register/Register.styles';
-import { initialState } from './Profile.constants';
+import { useAuthContext } from '../../context';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();
+  const ctx = useAuthContext();
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [userData, setUserData] = useState<IUser>(initialState);
-  const { firstName, lastName, username, email } = userData;
-  const [firstNameEdit, setFirstNameEdit] = useState('');
-  const [lastNameEdit, setLastNameEdit] = useState('');
-
-  const loadUserData = async () => {
-    const user = await getUserData();
-    setUserData(user as IUser);
-    setFirstNameEdit(user?.firstName);
-    setLastNameEdit(user?.lastName);
-  };
+  const [firstNameEdit, setFirstNameEdit] = useState(ctx.user?.firstName || '');
+  const [lastNameEdit, setLastNameEdit] = useState(ctx.user?.lastName || '');
 
   const handleUpdateUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,11 +48,6 @@ const Profile = (): JSX.Element => {
   const handleClickEditAccount = () => {
     setIsEditingAccount(prev => !prev);
   };
-
-  useEffect(() => {
-    loadUserData();
-  }, []);
-
 
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstNameEdit(event.target.value);
@@ -112,10 +98,10 @@ const Profile = (): JSX.Element => {
           </UserData>
         ) : (
           <UserData>
-            <Typography variant='body2'>Imię: <span>{firstName}</span></Typography>
-            <Typography variant='body2'>Nazwisko: <span>{lastName}</span></Typography>
-            <Typography variant='body2'>Nick: <span>{username}</span></Typography>
-            <Typography variant='body2'>Email: <span>{email}</span></Typography>
+            <Typography variant='body2'>Imię: <span>{ctx?.user?.firstName}</span></Typography>
+            <Typography variant='body2'>Nazwisko: <span>{ctx?.user?.lastName}</span></Typography>
+            <Typography variant='body2'>Nick: <span>{ctx?.user?.username}</span></Typography>
+            <Typography variant='body2'>Email: <span>{ctx?.user?.email}</span></Typography>
             <ButtonsWrapper>
               <Button variant="contained" color="primary" onClick={handleClickEditAccount}>
                 Edytuj konto

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
-import { UserContext } from '../context';
 import { TermsOfUse } from '../pages';
+import { useAuthContext } from '../context';
 
 const AppRouter = () => {
-  const { userToken } = useContext(UserContext);
+  const { userToken } = useAuthContext();
   const isUserAuthenticated = Boolean(userToken);
   return (
     <Routes>

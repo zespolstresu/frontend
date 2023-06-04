@@ -10,7 +10,9 @@ import gradientColors from '../../utils/gradientColors';
 import MuiCancelIcon from '@mui/icons-material/Cancel';
 import MuiPremiumIcon from '@mui/icons-material/AutoAwesome';
 
-export const Username = styled(Typography)<{isPremium: boolean}>(({theme, isPremium}) => ({
+export const Username = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isPremium'
+})<{isPremium: boolean}>(({theme, isPremium}) => ({
   color: isPremium ?  theme.palette.secondary.main : theme.palette.primary.contrastText,
   fontSize: isPremium ? '14px !important ' : 'initial'
 }));

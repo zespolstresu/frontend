@@ -5,8 +5,8 @@ import { ILink } from '../Navbar.types';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { deleteUserJwt } from '../../../utils/deleteUserJwt';
-import { UserContext } from '../../../context';
 import { MenuItem, Menu } from './HamburgerMenu.styles';
+import { useAuthContext } from '../../../context';
 
 interface IHamburgerMenu {
   userData: any;
@@ -15,7 +15,7 @@ interface IHamburgerMenu {
 const HamburgerMenu = ({ userData }: IHamburgerMenu) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { userToken } = useContext(UserContext);
+  const { userToken } = useAuthContext();
 
   const navLinks = useMemo<ILink[]>(() => {
     return prepareNavLinks(userData);

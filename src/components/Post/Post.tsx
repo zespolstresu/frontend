@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IPost, TVote } from './Post.types';
 import {
   UserActions,
@@ -27,14 +27,14 @@ import UserComment from '../UserComment/UserComment';
 import { dateFormat } from '../../formatters';
 import Comment from '../Comment/Comment';
 import { Box, IconButton, Typography } from '@mui/material';
-import { UserContext } from '../../context';
 import { deletePost, sendUserVote } from '../../api/Post.api';
 import { decodeUserToken } from '../../utils';
 import { TextModal } from '../Modal';
+import { useAuthContext } from '../../context';
 
 const Post = (props: IPost): JSX.Element => {
-  const { id, tag, username, isSpecialBadge, content, commentsCount, publishDate, votes, previewVersion } = props;
-  const { userToken } = useContext(UserContext);
+  const { id, tag, username, content, commentsCount, publishDate, votes, previewVersion } = props;
+  const { userToken, user } = useAuthContext();
   const [comments, setComments] = useState<IComment[]>([]);
   const [showComments, setShowComments] = useState(false);
   const [totalVotes, setTotalVotes] = useState(votes || 0);
@@ -105,7 +105,7 @@ const Post = (props: IPost): JSX.Element => {
           <UpperWrapper>
             <UserInfo>
               <Typography variant='h4'>@{tag}</Typography>
-              <Username variant='h3' isPremium={!!isSpecialBadge}>{username} {isSpecialBadge && <PremiumIcon color='secondary' />}</Username>
+              <Username variant='h3' isPremium={!!user?.isSpecialBadge && decodedUsername === username}>{username} {user?.isSpecialBadge && decodedUsername === username ? <PremiumIcon color='secondary' /> : ''}</Username>
             </UserInfo>
             <Typography>{content}</Typography>
           </UpperWrapper>

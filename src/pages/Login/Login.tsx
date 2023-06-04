@@ -13,14 +13,14 @@ import { Copyright } from '../../components';
 import { loginUser } from '../../api/User.api';
 import { useNavigate } from 'react-router-dom';
 import { ILoginUser } from '../../types';
-import { UserContext } from '../../context';
+import { useAuthContext } from '../../context';
 import { ErrorMessage } from '../Register/Register.styles';
 import { TextField } from '../../styles/commonStyles';
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
-  const { setUserToken } = useContext(UserContext);
+  const { setUserToken } = useAuthContext();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,7 +38,7 @@ const Login = (): JSX.Element => {
         localStorage.setItem('user', jwt);
         setUserToken(jwt);
       }
-  
+
       if (jwt) {
         navigate('/');
       }
@@ -98,7 +98,7 @@ const Login = (): JSX.Element => {
             >
               Zaloguj
             </Button>
-            <Link href="/register" variant="body2" style={{textAlign: 'center', display: 'block'}}>
+            <Link href="/register" variant="body2" style={{ textAlign: 'center', display: 'block' }}>
               Nie masz konta? Zarejestruj się!
             </Link>
           </Box>
